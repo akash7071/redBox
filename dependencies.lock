@@ -1,4 +1,14 @@
 dependencies:
+  espressif/es8311:
+    component_hash: eacbe7cb7f6993eb0f439121a56663cdfbf95925e7ddf5d2ed5aa640bed476fd
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.4'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.0
   espressif/esp_lvgl_port:
     component_hash: b6360960f47b6776462e7092861b3ea66477ffb762a01baa0aecbb3d74cd50f4
     dependencies:
@@ -25,8 +35,9 @@ dependencies:
       type: service
     version: 9.3.0
 direct_dependencies:
+- espressif/es8311
 - espressif/esp_lvgl_port
 - idf
-manifest_hash: c6e82e960169e70f478939e98cbae2855d9bca12170c0c79214457e38e3544dc
+manifest_hash: 5d3dee936c55f508f514e99de2953dfe051dcf12ded51a93d38056ce20eaaf19
 target: esp32s3
 version: 3.0.0
