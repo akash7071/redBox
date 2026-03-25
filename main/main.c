@@ -4,6 +4,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "hardware.h"
+#include "led.h"
 #include "ui.h"
 #include "wifi_station.h"
 
@@ -14,6 +15,8 @@ void app_main(void) {
   init_display();
   create_ui();
   init_audio();
+  init_led();
+  led_set_color(0, 64, 0); // Green on boot
   wifi_init_sta();
 
   int led_state = 1;
@@ -25,8 +28,9 @@ void app_main(void) {
     // Toggle backlight and beep on button press (falling edge)
     if (last_button_state == 1 && button_state == 0) {
       led_state = !led_state;
-      hardware_set_backlight(led_state);
+      // hardware_set_backlight(led_state);
       play_beep();
+      led_state ? led_set_color(0, 64, 0) : led_set_color(64, 0, 0);
       ESP_LOGI(TAG, "Button pressed — backlight: %d", led_state);
     }
     last_button_state = button_state;

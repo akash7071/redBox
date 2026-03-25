@@ -3,3 +3,4 @@ dependencies:
     version: '>=5.0'
   espressif/esp_lvgl_port: '^2.2.0'
   espressif/es8311: '>=0.0.2'
+  espressif/led_strip: '>=2.0.0'
