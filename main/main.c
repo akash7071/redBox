@@ -13,19 +13,27 @@ static const char *TAG = "app_main";
 
 #define BATTERY_POLL_INTERVAL_MS 10000
 
+static int led_state = 1;
+
+static void on_loud_sound(void) {
+  led_state = !led_state;
+  led_state ? led_set_color(0, 64, 0) : led_set_color(64, 0, 0);
+  ESP_LOGI(TAG, "Loud sound detected — LED: %d", led_state);
+}
+
 void app_main(void) {
-  init_hardware();  // Power hold (GPIO10), backlight (GPIO3), button (GPIO42)
+  init_hardware(); // Power hold (GPIO10), backlight (GPIO3), button (GPIO42)
   init_display();
   create_ui();
   init_audio();
-  init_battery();
   init_led();
   led_set_color(0, 64, 0); // Green on boot
+  audio_start_mic_monitor(on_loud_sound);
+  init_battery();
   wifi_init_sta();
 
-  int led_state         = 1;
   int last_button_state = 1;
-  int bat_tick          = 0;
+  int bat_tick = 0;
 
   // Initial battery reading
   ui_update_battery(battery_get_percent(), battery_get_voltage());
