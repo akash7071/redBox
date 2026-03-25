@@ -9,7 +9,6 @@
 
 static const char *TAG = "audio";
 
-// ---- Configuration ----
 #define I2C_PORT       I2C_NUM_0
 #define I2S_PORT       I2S_NUM_0
 #define SAMPLE_RATE    16000
@@ -97,8 +96,8 @@ void play_beep(void) {
   for (int i = 0; i < 64; i++) {
     for (int j = 0; j < 50; j++) {
       phase++;
-      int16_t val  = (phase % 16 < 8) ? 30000 : -30000;
-      buf[2 * j]   = val;
+      int16_t val    = (phase % 16 < 8) ? 30000 : -30000;
+      buf[2 * j]     = val;
       buf[2 * j + 1] = val;
     }
     i2s_channel_write(tx_chan, buf, sizeof(buf), &written, portMAX_DELAY);
